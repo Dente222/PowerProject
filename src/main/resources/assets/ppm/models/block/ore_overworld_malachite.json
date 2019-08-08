@@ -1,0 +1,6 @@
+{
+   "parent": "block/cube_all",
+   "textures": {
+       "all": "ppm:blocks/ore_overworld_malachite"
+   }
+}
