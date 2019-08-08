@@ -1,0 +1,29 @@
+
+//Items starts here!
+item.ingot_malachite.name=Malachite Ingot
+
+
+//Tools starts here!
+item.pickaxe_malachite.name=Malachite Pickaxe
+item.axe_malachite.name=Malachite Axe
+item.shovel_malachite.name=Malachite Shovel
+item.sword_malachite.name=Malachite Sword
+item.hoe_malachite.name=Malachite Hoe
+
+
+//Armor starts here!
+item.helmet_malachite.name=Malachite Helmet
+item.chestplate_malachite.name=Malachite Chestplate
+item.leggings_malachite.name=Malachite Leggings
+item.boots_malachite.name=Malachite Boots
+
+
+//Blocks starts here!
+tile.block_malachite.name=Malachite Block
+tile.ore_overworld_laterite.name=Laterite Ore
+tile.ore_overworld_malachite.name=Malachite Ore
+tile.ore_overworld_pyrite.name=Pyrite Ore
+tile.ore_uran.name=Uranium Ore
+
+//Tabs and GUI starts here!
+itemGroup.power_tab=Power Project Mod

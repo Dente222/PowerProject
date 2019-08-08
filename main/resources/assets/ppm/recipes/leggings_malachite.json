@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "BBB",
+        "B B",
+        "B B"
+    ],
+    
+    "key":
+    {
+        "B":
+        {
+            "item": "ppm:ingot_malachite"
+        }
+    },
+    
+    "result":
+    {
+        "item": "ppm:leggings_malachite"
+    }
+}

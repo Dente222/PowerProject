@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "B",
+        "S",
+        "S"
+    ],
+    
+    "key":
+    {
+        "B":
+        {
+            "item": "ppm:ingot_malachite"
+        },
+        
+        "S":
+        {
+            "item": "minecraft:stick"
+        }
+    },
+    
+    "result":
+    {
+        "item": "ppm:shovel_malachite"
+    }
+}
