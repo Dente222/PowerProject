@@ -1,6 +1,9 @@
 
 //Items starts here!
 item.ingot_malachite.name=Malachite Ingot
+item.ingot_uran.name=Uranium Ingot
+item.chunk_uran.name=Uranium Chunk
+item.chunk_pyrite.name=Pyrite Chunk
 
 
 //Tools starts here!
@@ -20,10 +23,16 @@ item.boots_malachite.name=Malachite Boots
 
 //Blocks starts here!
 tile.block_malachite.name=Malachite Block
-tile.ore_overworld_laterite.name=Laterite Ore
-tile.ore_overworld_malachite.name=Malachite Ore
-tile.ore_overworld_polonium.name=Polonium Ore
+tile.ore_laterite.name=Laterite Ore
+tile.ore_malachite.name=Malachite Ore
+tile.ore_pyrite.name=Pyrite Ore
 tile.ore_uran.name=Uranium Ore
 
-//Tabs and GUI starts here!
+//Tabs starts here!
 itemGroup.power_tab=Power Project Mod
+
+//GUI starts here!
+container.block_cgenerator=Coal Generator
+
+//Tile Entities starts here!
+tile.block_cgenerator.name=Coal Generator

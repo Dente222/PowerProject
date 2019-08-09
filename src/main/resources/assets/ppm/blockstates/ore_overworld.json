@@ -3,6 +3,6 @@
     {
         "variant=laterite": { "model": "ppm:ore_overworld_laterite" },
         "variant=malachite": { "model": "ppm:ore_overworld_malachite" },
-        "variant=polonium": { "model": "ppm:ore_overworld_polonium" }
+        "variant=pyrite": { "model": "ppm:ore_overworld_pyrite" }
     }
 }
