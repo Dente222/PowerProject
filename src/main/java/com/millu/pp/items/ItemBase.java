@@ -12,19 +12,18 @@ public class ItemBase extends Item implements IHasModel{
 	
 	
 	//Base class for our items, this class makes dummy items without any functions 
-	public ItemBase(String name) {
-		
+	public ItemBase(String name, CreativeTabs tab) 
+	{
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(Main.powertabs);
+		setCreativeTab(tab);
 		
 		ItemInit.ITEMS.add(this);
 	}
 	
 	@Override
-	public void registerModels() {
-		
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
-
+	public void registerModels() 
+	{
+		Main.proxy.registerModel(this, 0);
 	}
 }

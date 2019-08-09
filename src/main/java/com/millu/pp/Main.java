@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class Main {
 	
 	//Registers Creative tab
-	public static final CreativeTabs powertabs = new PowerTabs("power_tabs");
+	public static final CreativeTabs POWERTABS = new PowerTabs("power_tabs");
 	
 	@Instance
 	public static Main instance;
@@ -30,10 +30,13 @@ public class Main {
 	public static void preInit(FMLPreInitializationEvent event) {
 		
 		RegistryHandler.preInitRegistries(event);
+		
 	}
 	
 	@EventHandler
 	public static void init(FMLInitializationEvent event) {
+
+		RegistryHandler.initRegistries();
 		
 	}
 	

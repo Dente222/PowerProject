@@ -11,22 +11,19 @@ import net.minecraft.item.ItemSpade;
 
 public class ToolShovel extends ItemSpade implements IHasModel {
 
-	public ToolShovel(String name, ToolMaterial material) {
-		
+	public ToolShovel(String name, ToolMaterial material, CreativeTabs tab) 
+	{
 		super(material);
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(Main.powertabs);
+		setCreativeTab(tab);
 		
 		ItemInit.ITEMS.add(this);
-	
-	
 	}
-	
-	@Override
-	public void registerModels() {
-		
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
 
+	@Override
+	public void registerModels() 
+	{
+		Main.proxy.registerModel(this, 0);
 	}
 }

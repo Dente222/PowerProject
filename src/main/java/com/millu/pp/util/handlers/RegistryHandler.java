@@ -1,5 +1,6 @@
 package com.millu.pp.util.handlers;
 
+import com.millu.pp.Main;
 import com.millu.pp.init.BlockInit;
 import com.millu.pp.init.ItemInit;
 import com.millu.pp.util.IHasModel;
@@ -7,15 +8,25 @@ import com.millu.pp.world.gen.CustomOreWorldGen;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @EventBusSubscriber
 public class RegistryHandler {
+
+	
+	public static void Common()
+	{
+	RecipeHandler.registerSmelting();
+	}
+
+	
 	
 	//Loads items from Array list starting from 0
 	@SubscribeEvent
@@ -57,7 +68,12 @@ public class RegistryHandler {
 		
 		GameRegistry.registerWorldGenerator(new CustomOreWorldGen(), 0);
 
-
+	}
+	
+	public static void initRegistries()
+	{
+		NetworkRegistry.INSTANCE.registerGuiHandler(Main.instance, new GuiHandler());
+		RecipeHandler.registerSmelting();
 	}
 
 }

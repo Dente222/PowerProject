@@ -13,21 +13,19 @@ import net.minecraft.item.Item.ToolMaterial;
 public class ArmorBase extends ItemArmor implements IHasModel {
 	
 	//Registers Armor parts as Items
-	public ArmorBase(String name, ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
-		
+	public ArmorBase(String name, ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) 
+	{
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(Main.powertabs);
+		setCreativeTab(Main.POWERTABS);
 		
 		ItemInit.ITEMS.add(this);
 	}
-	
+
 	@Override
-	public void registerModels() {
-		
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
-
+	public void registerModels() 
+	{
+		Main.proxy.registerModel(this, 0);
 	}
-
 }

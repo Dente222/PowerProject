@@ -10,22 +10,19 @@ import net.minecraft.item.ItemHoe;
 public class ToolHoe extends ItemHoe implements IHasModel{
 	
 
-	public ToolHoe(String name, ToolMaterial material) {
-		
+	public ToolHoe(String name, ToolMaterial material, CreativeTabs tab) 
+	{
 		super(material);
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(Main.powertabs);
+		setCreativeTab(tab);
 		
 		ItemInit.ITEMS.add(this);
-	
-	
 	}
-	
-	@Override
-	public void registerModels() {
-		
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
 
+	@Override
+	public void registerModels() 
+	{
+		Main.proxy.registerModel(this, 0);
 	}
 }

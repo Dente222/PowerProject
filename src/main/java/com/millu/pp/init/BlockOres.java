@@ -1,3 +1,7 @@
+/*
+  
+ Here is just some old ENUM Variant Function that I don't need right now so lets just comment all this
+ 
 package com.millu.pp.init;
 
 import com.millu.pp.Main;
@@ -101,3 +105,4 @@ public class BlockOres extends Block implements IHasModel, IMetaName {
 	}
 
 }
+*/

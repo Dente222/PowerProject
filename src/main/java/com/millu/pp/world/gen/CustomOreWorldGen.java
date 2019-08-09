@@ -3,7 +3,6 @@ package com.millu.pp.world.gen;
 import java.util.Random;
 
 import com.millu.pp.init.BlockInit;
-import com.millu.pp.init.BlockOres;
 import com.millu.pp.util.handlers.EnumHandler;
 
 import net.minecraft.block.state.pattern.BlockMatcher;
@@ -19,15 +18,20 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 public class CustomOreWorldGen implements IWorldGenerator {
 	
 	//Private Non Array list to define ores for ore Gen
-	private WorldGenerator ore_overworld_malachite, ore_overworld_laterite, ore_overworld_pyrite, ore_uran;
+	private WorldGenerator ore_uran, ore_pyrite, ore_laterite, ore_malachite;
 	
 	public CustomOreWorldGen() {
 		
+		/*
 		ore_overworld_malachite = new WorldGenMinable(BlockInit.ORE_SURFACE.getDefaultState().withProperty(BlockOres.VARIANT, EnumHandler.EnumType.MALACHITE), 11, BlockMatcher.forBlock(Blocks.STONE));
 		ore_overworld_laterite = new WorldGenMinable(BlockInit.ORE_SURFACE.getDefaultState().withProperty(BlockOres.VARIANT, EnumHandler.EnumType.LATERITE), 9, BlockMatcher.forBlock(Blocks.STONE));
-		ore_overworld_pyrite = new WorldGenMinable(BlockInit.ORE_SURFACE.getDefaultState().withProperty(BlockOres.VARIANT, EnumHandler.EnumType.LATERITE), 13, BlockMatcher.forBlock(Blocks.STONE));
+		ore_overworld_pyrite = new WorldGenMinable(BlockInit.ORE_SURFACE.getDefaultState().withProperty(BlockOres.VARIANT, EnumHandler.EnumType.PYRITE), 13, BlockMatcher.forBlock(Blocks.STONE));
+		*/
 		
 		//Uranium does not belong to any Variant
+		ore_malachite = new WorldGenMinable(BlockInit.ORE_MALACHITE.getDefaultState(), 11, BlockMatcher.forBlock(Blocks.STONE));
+		ore_laterite = new WorldGenMinable(BlockInit.ORE_LATERITE.getDefaultState(), 9, BlockMatcher.forBlock(Blocks.STONE));
+		ore_pyrite = new WorldGenMinable(BlockInit.ORE_PYRITE.getDefaultState(), 13, BlockMatcher.forBlock(Blocks.STONE));
 		ore_uran = new WorldGenMinable(BlockInit.ORE_URAN.getDefaultState(), 6, BlockMatcher.forBlock(Blocks.STONE));
 
 	}
@@ -48,9 +52,16 @@ public class CustomOreWorldGen implements IWorldGenerator {
 		case 0:
 			
 			//In this case this ores will spawn in Overworld
+			
+			/* Old Variant Types that will be here just in case if I will need them someday
 			worldGenerartorGen(ore_overworld_malachite, world, random, chunkX, chunkZ, 24, 0, 70);
 			worldGenerartorGen(ore_overworld_laterite, world, random, chunkX, chunkZ, 20, 0, 50);
 			worldGenerartorGen(ore_overworld_pyrite, world, random, chunkX, chunkZ, 15, 0, 60);
+			*/
+			
+			worldGenerartorGen(ore_malachite, world, random, chunkX, chunkZ, 24, 0, 70);
+			worldGenerartorGen(ore_laterite, world, random, chunkX, chunkZ, 20, 0, 50);
+			worldGenerartorGen(ore_pyrite, world, random, chunkX, chunkZ, 15, 0, 60);
 			worldGenerartorGen(ore_uran, world, random, chunkX, chunkZ, 10, 0, 30);
 			
 			break;

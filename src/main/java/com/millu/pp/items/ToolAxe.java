@@ -14,6 +14,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.item.Item.ToolMaterial;
 
 //Axe need to be extended as ItemTool but multiple axes can refer to this class
 public class ToolAxe extends ItemTool implements IHasModel {
@@ -35,28 +36,26 @@ public class ToolAxe extends ItemTool implements IHasModel {
 																	   Blocks.TRAPDOOR, Blocks.TRAPPED_CHEST, Blocks.WOODEN_PRESSURE_PLATE);
 
 	
-	public ToolAxe(String name, ToolMaterial material) {
+	public ToolAxe(String name, ToolMaterial material, CreativeTabs tab) {
 		
 		super(material, EFFECTIVE_ON);
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(Main.powertabs);
+		setCreativeTab(tab);
 		
 		ItemInit.ITEMS.add(this);
 	}
 	
 	//Makes our axe efficient against Wood/Plants and Vines Blocks
-	public float getStrVsBlock(ItemStack stack, IBlockState state) {
-		
-		Material material = state.getMaterial();
-		return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE ?super.getDestroySpeed(stack, state) : this.efficiency;
-	}
-	
+		public float getStrVsBlock(ItemStack stack, IBlockState state) {
+			
+			Material material = state.getMaterial();
+			return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE ?super.getDestroySpeed(stack, state) : this.efficiency;
+		}
+
 	@Override
 	public void registerModels() {
-		
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
-
+		Main.proxy.registerModel(this, 0);
 	}
 }
 
