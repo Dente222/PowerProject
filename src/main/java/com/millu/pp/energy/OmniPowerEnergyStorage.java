@@ -5,6 +5,7 @@ import net.minecraftforge.energy.EnergyStorage;
 
 public class OmniPowerEnergyStorage extends EnergyStorage{
 	
+	//Most of this were taken from EnergyStorage Class, this is used to allow our energy to be stored and work with other mods
 	//This is a Storage System based on Forge Energy
 	
 	public OmniPowerEnergyStorage(int capacity)
@@ -63,6 +64,7 @@ public class OmniPowerEnergyStorage extends EnergyStorage{
     	return super.canReceive();
     }
     
+    //This reads default storage Tags "NOTE: Tags need's to gave this exact names to work properly!"
     public void readFromNBT(NBTTagCompound compound)
     {
     	this.energy = compound.getInteger("Energy");
@@ -71,6 +73,7 @@ public class OmniPowerEnergyStorage extends EnergyStorage{
     	this.maxExtract = compound.getInteger("MaxExtract");
     }
     
+    //This saves default storage Tags "NOTE: Tags need's to gave this exact names to work properly!"
     public void writeToNBT(NBTTagCompound compound)
     {
     	compound.setInteger("Energy", this.energy);
