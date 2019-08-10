@@ -77,5 +77,5 @@ public class OmniPowerEnergyStorage extends EnergyStorage{
     	compound.setInteger("Capacity", this.capacity);
     	compound.setInteger("MaxReceive", this.maxReceive);
     	compound.setInteger("MaxExtract", this.maxExtract);
-    }    
+    }
 }

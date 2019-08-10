@@ -1,9 +1,10 @@
 package com.millu.pp.tileentity;
 
+import com.millu.pp.blocks.machines.BlockCoalGeneratorBlock;
 import com.millu.pp.energy.OmniPowerEnergyStorage;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,6 +15,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -21,22 +23,49 @@ public class TileEntityCoalGenerator extends TileEntity implements ITickable{
 
 	public ItemStackHandler handler = new ItemStackHandler(1);
 	private OmniPowerEnergyStorage storage = new OmniPowerEnergyStorage(1000, 0, 20);
-	public int energy = storage.getEnergyStored();
+	public int energy;
 	private String customName;
 	public int cookTime;
+	public final int ENERGY_OUT_PUT = 20;
 	
 	@Override
 	public void update() 
 	{
-		if(!handler.getStackInSlot(0).isEmpty() && isItemFuel(handler.getStackInSlot(0)))
+		
+		if(world.isBlockPowered(pos)) {
+
+			if (getWorld() != null && !getWorld().isRemote
+					&& getWorld().getTileEntity(getPos().offset(EnumFacing.UP)) != null) {
+
+				IEnergyStorage storages = getWorld().getTileEntity(getPos().offset(EnumFacing.UP))
+						.getCapability(CapabilityEnergy.ENERGY, EnumFacing.UP.getOpposite());
+			
+
+				if (storages != null && storages.canReceive() && energy > 0) {
+					storage.extractEnergy(storages.receiveEnergy(ENERGY_OUT_PUT, false), false);
+					this.energy = storage.getEnergyStored();
+				
+				}
+			}
+		}
+		
+		if(!handler.getStackInSlot(0).isEmpty() && isItemFuel(handler.getStackInSlot(0)) && energy <= 1000)
 		{
+			
 			cookTime++;
-			if(cookTime == 25)
+			energy++;
+			if(cookTime == 100)
 			{
-				energy += getFuelValue(handler.getStackInSlot(0));
+				//generate power when cooking time reach 100 and reset it + remove fuel
 				handler.getStackInSlot(0).shrink(1);
 				cookTime = 0;
 			}
+		}
+		//Reset Cooking timer if there is no fuel in slot
+		//Note: This will be removed due to infinite power Bug
+		else
+		{
+			cookTime--;
 		}
 	}
 	
@@ -106,6 +135,12 @@ public class TileEntityCoalGenerator extends TileEntity implements ITickable{
 		return this.storage.getMaxEnergyStored();
 	}
 	
+	 public int extractEnergy(int maxExtract, boolean simulate) 
+	    {
+	    	return this.energy;
+	    }
+	
+	
 	public int getField(int id)
 	{
 		switch(id)
@@ -138,20 +173,3 @@ public class TileEntityCoalGenerator extends TileEntity implements ITickable{
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

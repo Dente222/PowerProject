@@ -11,7 +11,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 
 public class TEOmniEnergy extends TileEntity implements ITickable{
 	
-	private OmniPowerEnergyStorage storage = new OmniPowerEnergyStorage(10000);
+	private OmniPowerEnergyStorage storage = new OmniPowerEnergyStorage(1000);
 	
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) 
@@ -30,8 +30,8 @@ public class TEOmniEnergy extends TileEntity implements ITickable{
 	@Override
 	public void update() 
 	{
-		this.storage.receiveEnergy(100, false);
-		this.storage.extractEnergy(200, false);
+		this.storage.receiveEnergy(1000, false);
+		this.storage.extractEnergy(1000, false);
 	}
 	
 }

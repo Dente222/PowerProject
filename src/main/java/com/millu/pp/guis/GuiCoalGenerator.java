@@ -55,6 +55,6 @@ public class GuiCoalGenerator extends GuiContainer {
 	private int getCookProgressScaled(int pixels)
 	{
 		int i = this.tileentity.cookTime;
-		return i != 0 ? i * pixels / 25 : 0;
+		return i != 0 ? i * pixels / 100 : 0;
 	}
 }
