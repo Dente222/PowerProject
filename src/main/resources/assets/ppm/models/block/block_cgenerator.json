@@ -1,0 +1,12 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "particle": "ppm:blocks/machine_top",
+        "up": "ppm:blocks/machine_top",
+        "down": "ppm:blocks/machine_top",
+        "north": "ppm:blocks/machine_front_generator_off",
+        "east": "ppm:blocks/machine_side",
+        "south": "ppm:blocks/machine_side",
+        "west": "ppm:blocks/machine_side"
+    }
+}

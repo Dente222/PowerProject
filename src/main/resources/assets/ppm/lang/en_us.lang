@@ -32,7 +32,7 @@ tile.ore_uran.name=Uranium Ore
 itemGroup.power_tab=Power Project Mod
 
 //GUI starts here!
-container.block_cgenerator=Coal Generator
+container.block_cgenerator=Coal Reactor
 
 //Tile Entities starts here!
-tile.block_cgenerator.name=Coal Generator
+tile.block_cgenerator.name=Coal Reactor
