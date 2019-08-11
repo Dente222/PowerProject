@@ -50,6 +50,7 @@ public class ContainerCoalGenerator extends Container {
 		this.tileentity.setField(id, data);
 	}
 	
+	
 	@Override
 	public void detectAndSendChanges() 
 	{

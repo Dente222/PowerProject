@@ -2,23 +2,25 @@ package com.millu.pp.blocks.machines;
 
 
 
+import java.util.List;
 import java.util.Random;
 
 import com.millu.pp.Main;
 import com.millu.pp.blocks.BlockBase;
 import com.millu.pp.init.BlockInit;
+import com.millu.pp.init.ItemInit;
 import com.millu.pp.tileentity.TileEntityCoalGenerator;
 import com.millu.pp.util.Reference;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,8 +31,10 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockCoalGeneratorBlock extends BlockBase {
@@ -41,21 +45,15 @@ public class BlockCoalGeneratorBlock extends BlockBase {
 	public BlockCoalGeneratorBlock(String name) 
 	{
 		super(name, Material.IRON, Main.POWERTABS);
+		setSoundType(SoundType.METAL);
+		setHardness(2F);
+		setResistance(20F);
+		setHarvestLevel("pickaxe", 2);	
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BURNING, false));
-		}
-
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) 
-	{
-		if(!worldIn.isRemote)
-		{
-			playerIn.openGui(Main.instance, Reference.GUI_COAL_GENERATOR, worldIn, pos.getX(), pos.getY(), pos.getZ());
-		}
-		
-		return true;
 	}
-
 	
+
+	//Drops our Generator
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) 
 	{
@@ -67,9 +65,19 @@ public class BlockCoalGeneratorBlock extends BlockBase {
 	{
 		return new ItemStack(BlockInit.COAL_GENERATOR);
 	}
-
 	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) 
+	{
+		if(!worldIn.isRemote)
+		{
+			playerIn.openGui(Main.instance, Reference.GUI_COAL_GENERATOR, worldIn, pos.getX(), pos.getY(), pos.getZ());
+		}
+		
+		return true;
+	}
 	
+	//Make block face player when placed
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) 
 	{
@@ -105,19 +113,21 @@ public class BlockCoalGeneratorBlock extends BlockBase {
 	}
 	
 	@Override
-	public boolean hasTileEntity() 
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) 
+	{
+		TileEntityCoalGenerator tileentity = (TileEntityCoalGenerator)worldIn.getTileEntity(pos);
+		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.handler.getStackInSlot(0)));
+		super.breakBlock(worldIn, pos, state);
+	}
+	
+	@Override
+	public boolean hasTileEntity(IBlockState state) 
 	{
 		return true;
 	}
 	
 	@Override
-	public boolean hasTileEntity(IBlockState state)
-	{
-		return true;
-	}
-	
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState state)
+	public TileEntity createTileEntity(World world, IBlockState state) 
 	{
 		return new TileEntityCoalGenerator();
 	}
@@ -132,16 +142,6 @@ public class BlockCoalGeneratorBlock extends BlockBase {
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) 
 	{
 		worldIn.setBlockState(pos, this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
-	}
-	
-	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) 
-	{
-		TileEntityCoalGenerator tileentity = (TileEntityCoalGenerator)worldIn.getTileEntity(pos);
-		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.handler.getStackInSlot(0)));
-		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.handler.getStackInSlot(1)));
-		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.handler.getStackInSlot(2)));
-		super.breakBlock(worldIn, pos, state);
 	}
 	
 	@Override
@@ -180,5 +180,14 @@ public class BlockCoalGeneratorBlock extends BlockBase {
 	public int getMetaFromState(IBlockState state) 
 	{
 		return ((EnumFacing)state.getValue(FACING)).getIndex();
-	}	
+	}
+	@Override
+	public void addInformation(ItemStack itemstack, World world, List<String> list, ITooltipFlag flag) {
+		
+		super.addInformation(itemstack, world, list, flag);
+		list.add("Generates Energy from Coal");
+		list.add("Max Storage:§3 1000 OP");
+		list.add("Max Output:§3 20 OP/t");
+		list.add("Output socket on top, requires redstone signal to output");
+	}
 }

@@ -14,6 +14,7 @@ public class GuiCoalGenerator extends GuiContainer {
 	private static final ResourceLocation TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/gui/coal_generator.png");
 	private final InventoryPlayer player;
 	private final TileEntityCoalGenerator tileentity;
+	private final String energytxt = "Stored Omni Powe:";
 	
 	public GuiCoalGenerator(InventoryPlayer player, TileEntityCoalGenerator tileentity) 
 	{
@@ -28,7 +29,8 @@ public class GuiCoalGenerator extends GuiContainer {
 		String tileName = this.tileentity.getDisplayName().getUnformattedText();
 		this.fontRenderer.drawString(tileName, (this.xSize / 2 - this.fontRenderer.getStringWidth(tileName) / 2) -5, 6, 4210752);
 		this.fontRenderer.drawString(this.player.getDisplayName().getUnformattedText(), 7, this.ySize - 96 + 2, 4210752);
-		this.fontRenderer.drawString(Integer.toString(this.tileentity.getEnergyStored()), 115, 72, 4210752);
+		this.fontRenderer.drawString(Integer.toString(this.tileentity.getEnergyStored()), 115, 60, 4210752);
+		this.fontRenderer.drawString(energytxt, 10, 60, 4210752);
 	}
 	
 	@Override

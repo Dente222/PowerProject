@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.millu.pp.Main;
 import com.millu.pp.blocks.BlockBase;
+import com.millu.pp.blocks.BlockRTGBase;
 import com.millu.pp.blocks.BlockStandardOres;
 import com.millu.pp.blocks.BlockUraniumBase;
 import com.millu.pp.blocks.machines.BlockCoalGeneratorBlock;
@@ -38,6 +39,8 @@ public class BlockInit {
 	
 	//Machine blocks and other Stuff
 	public static final Block COAL_GENERATOR = new BlockCoalGeneratorBlock("block_cgenerator");
+	public static final Block BASIC_RTG_GENERATOR = new BlockRTGBase("block_brtggenerator");
+	
 
 	//Custom Model Blocks
 	

@@ -1,5 +1,6 @@
 package com.millu.pp.util.handlers;
 
+import com.millu.pp.tileentity.TEBasicRTG;
 import com.millu.pp.tileentity.TileEntityCoalGenerator;
 import com.millu.pp.util.Reference;
 
@@ -12,6 +13,7 @@ public class TileEntityHandler
 	{
 		
 		GameRegistry.registerTileEntity(TileEntityCoalGenerator.class, new ResourceLocation(Reference.MOD_ID + ":block_cgenerator"));
+		GameRegistry.registerTileEntity(TEBasicRTG.class, new ResourceLocation(Reference.MOD_ID + ":block_brtggenerator"));
 	
 	}
 }
