@@ -38,34 +38,42 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockCoalGeneratorBlock extends BlockBase {
-
+	
+	//Sets facing type
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
+	//Adds Boolean property "In that case my generator will gonna change its texture to burning one when item is processed
+	//More Property variants can be added depending on what I need
 	public static final PropertyBool BURNING = PropertyBool.create("burning");
 	
 	public BlockCoalGeneratorBlock(String name) 
 	{
+		//Usueal Junk
 		super(name, Material.IRON, Main.POWERTABS);
 		setSoundType(SoundType.METAL);
 		setHardness(2F);
 		setResistance(20F);
 		setHarvestLevel("pickaxe", 2);	
+		
+		//This sets our tileentity property state to false so when its placed it will have not activated texture
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BURNING, false));
 	}
 	
 
-	//Drops our Generator
+	//Get's items from block and drops them
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) 
 	{
 		return Item.getItemFromBlock(BlockInit.COAL_GENERATOR);
 	}
 	
+	//Same as abowe but this time takse Itemstack of this items
 	@Override
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
 	{
 		return new ItemStack(BlockInit.COAL_GENERATOR);
 	}
 	
+	//Opens GUI when Right clicked
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) 
 	{
@@ -82,7 +90,7 @@ public class BlockCoalGeneratorBlock extends BlockBase {
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) 
 	{
 		if (!worldIn.isRemote) 
-        {
+        	{
             IBlockState north = worldIn.getBlockState(pos.north());
             IBlockState south = worldIn.getBlockState(pos.south());
             IBlockState west = worldIn.getBlockState(pos.west());
@@ -94,9 +102,10 @@ public class BlockCoalGeneratorBlock extends BlockBase {
             else if (face == EnumFacing.WEST && west.isFullBlock() && !east.isFullBlock()) face = EnumFacing.EAST;
             else if (face == EnumFacing.EAST && east.isFullBlock() && !west.isFullBlock()) face = EnumFacing.WEST;
             worldIn.setBlockState(pos, state.withProperty(FACING, face), 2);
-        }
+        	}
 	}
 	
+	//Sets State's for our block
 	public static void setState(boolean active, World worldIn, BlockPos pos) 
 	{
 		IBlockState state = worldIn.getBlockState(pos);
@@ -112,6 +121,8 @@ public class BlockCoalGeneratorBlock extends BlockBase {
 		}
 	}
 	
+	//Drops Items from every slot and block in its default state when breaked in its different state
+	//Note: You must declare the exact number of slots to make it work! no more no less
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) 
 	{
@@ -120,35 +131,42 @@ public class BlockCoalGeneratorBlock extends BlockBase {
 		super.breakBlock(worldIn, pos, state);
 	}
 	
+	//Check if our block has TileEntity Option
 	@Override
 	public boolean hasTileEntity(IBlockState state) 
 	{
 		return true;
 	}
 	
+	//Creates TileEntity for our block
+	//Note this Options are required to make out block connect to Cabels from other mods such as Thermal Series 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState state) 
 	{
 		return new TileEntityCoalGenerator();
 	}
 	
+	//Get's default state from block
 	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) 
 	{
 		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 	
+	//Sets default state for our block when placed
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) 
 	{
 		worldIn.setBlockState(pos, this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 	}
 	
+	//Type of Render for out block
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) 
 	{
 		return EnumBlockRenderType.MODEL;
 	}
+	
 	
 	@Override
 	public IBlockState withRotation(IBlockState state, Rotation rot)
@@ -168,6 +186,7 @@ public class BlockCoalGeneratorBlock extends BlockBase {
 		return new BlockStateContainer(this, new IProperty[] {BURNING,FACING});
 	}
 	
+	//Takes default state for our block
 	@Override
 	public IBlockState getStateFromMeta(int meta) 
 	{
@@ -186,8 +205,8 @@ public class BlockCoalGeneratorBlock extends BlockBase {
 		
 		super.addInformation(itemstack, world, list, flag);
 		list.add("Generates Energy from Coal");
-		list.add("Max Storage:ง3 1000 OP");
-		list.add("Max Output:ง3 20 OP/t");
+		list.add("Max Storage:ยง3 1000 OP");
+		list.add("Max Output:ยง3 20 OP/t");
 		list.add("Output socket on top, requires redstone signal to output");
 	}
 }
